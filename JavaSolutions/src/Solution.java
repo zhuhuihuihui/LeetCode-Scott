@@ -8,7 +8,7 @@ public class Solution {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        String result = solution.convert("PAYPALISHIRING", 3);
+        int result = solution.myAtoi("  ");
         System.out.println(result);
     }
 
@@ -203,4 +203,63 @@ public class Solution {
 //        }
         return result;
     }
+
+    /**
+     * 125. Valid Palindrome
+     * String, Easy
+     * https://leetcode.com/problems/valid-palindrome/
+     * */
+    public boolean isPalindrome(String s) {
+        if (s == null) return false;
+        int leftCursor = 0, rightCursor = s.length() - 1;
+        while (leftCursor < rightCursor) {
+            char leftChar = s.charAt(leftCursor), rightChar = s.charAt(rightCursor);
+            if (isAlphanumeric(leftChar) && isAlphanumeric(rightChar)) {
+                if (Character.toLowerCase(leftChar) != Character.toLowerCase(rightChar)) {
+                    return false;
+                }
+                leftCursor++;
+                rightCursor--;
+            }
+
+            if (!isAlphanumeric(leftChar)) {
+                leftCursor++;
+            }
+            if (!isAlphanumeric(rightChar)) {
+                rightCursor--;
+            }
+        }
+        return true;
+    }
+
+    public boolean isAlphanumeric(char character) {
+        return Character.isAlphabetic(character) || Character.isDigit(character);
+    }
+
+    /**
+     * 8. String to Integer (atoi)
+     * String, Easy
+     * https://leetcode.com/problems/string-to-integer-atoi/
+     * */
+    public int myAtoi(String str) {
+        int p = 0, ret = 0;
+        while(p <str.length() && Character.isWhitespace(str.charAt(p))) ++p;
+        if(p == str.length()) return 0;
+        boolean negFlag = (str.charAt(p) == '-');
+        if(str.charAt(p) == '+'  || str.charAt(p) == '-') ++p;
+        for(; p<str.length(); ++p) {
+            if(str.charAt(p) > '9' || str.charAt(p) < '0') {
+                break;
+            }else {
+                int digit = str.charAt(p) - '0';
+                if(!negFlag && ret > (Integer.MAX_VALUE - digit) /10) return Integer.MAX_VALUE;
+                else if(negFlag && ret < (Integer.MIN_VALUE + digit)/10) return Integer.MIN_VALUE;
+                ret = ret * 10 + (negFlag? -digit: digit);
+            }
+        }
+        return ret;
+
+    }
+
+    
 }
