@@ -8,7 +8,7 @@ public class Solution {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        int result = solution.myAtoi("  ");
+        int result = solution.romanToInt("MDCCC");
         System.out.println(result);
     }
 
@@ -261,5 +261,60 @@ public class Solution {
 
     }
 
-    
+    /**
+     * 13. Roman to Integer
+     * String, Easy
+     * https://leetcode.com/problems/roman-to-integer/
+     * */
+    public int romanToInt(String s) {
+        if (s == null || s.isEmpty()) return 0;
+
+        int result = 0;
+        s = s.toUpperCase();
+        s = s.replaceAll("IV", "IIII");
+        s = s.replaceAll("IX", "VIIII");
+        s = s.replaceAll("XL", "XXXX");
+        s = s.replaceAll("XC", "LXXXX");
+        s = s.replaceAll("CD", "CCCC");
+        s = s.replaceAll("CM", "DCCCC");
+
+        for (int i = 0; i < s.length(); i++) {
+            switch (s.charAt(i)) {
+                case 'M':
+                    result+= 1000;
+                    break;
+                case 'D':
+                    result+= 500;
+                    break;
+                case 'C':
+                    result+= 100;
+                    break;
+                case 'L':
+                    result+= 50;
+                    break;
+                case 'X':
+                    result+= 10;
+                    break;
+                case 'V':
+                    result+= 5;
+                    break;
+                case 'I':
+                    result+= 1;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * 28. Implement strStr()
+     * String, Easy
+     * https://leetcode.com/problems/implement-strstr/
+     * */
+    public int strStr(String haystack, String needle) {
+
+    }
 }
